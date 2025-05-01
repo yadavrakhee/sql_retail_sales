@@ -83,11 +83,12 @@ WHERE sale_date = '2022-11-05';
 SELECT 
   *
 FROM retail_sales
-WHERE category = 'Clothing'
+WHERE
+    category = 'Clothing'
     AND 
     TO_CHAR(sale_date, 'YYYY-MM') = '2022-11'
-	AND  
-	quantiy >= 4
+    AND  
+    quantiy >= 4
 
 ```
 
@@ -130,6 +131,7 @@ GROUP
     BY
     category,
     gender
+ORDER BY 1
 
 ```
 
@@ -138,7 +140,7 @@ GROUP
 ```sql
 SELECT
        year, 
-        month,
+       month,
      avg_sale
 FROM
 (
@@ -183,15 +185,15 @@ AS
 (
 SELECT *, 
     CASE 
-    WHEN EXTRACT(HOUR FROM sale_time) < 12 THEN 'Morning'
-    WHEN EXTRACT(HOUR FROM sale_time) BETWEEN 12 AND 17 THEN 'Afternoon'
-    ELSE 'Evening'
-  END as shift
+        WHEN EXTRACT(HOUR FROM sale_time) < 12 THEN 'Morning'
+        WHEN EXTRACT(HOUR FROM sale_time) BETWEEN 12 AND 17 THEN 'Afternoon'
+        ELSE 'Evening'
+    END as shift
 FROM retail_sales
 )
 SELECT
     shift,
-	COUNT(*) as total_orders
+    COUNT(*) as total_orders
 FROM hourly_sale
 GROUP BY shift
 ```
